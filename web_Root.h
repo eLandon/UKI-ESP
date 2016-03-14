@@ -1,6 +1,6 @@
 
 
-const char PAGE_Root[] PROGMEM = R"=====(
+const char web_Root[] PROGMEM = R"=====(
 <!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script src="microajax.js"></script> 
@@ -26,7 +26,7 @@ void sendRootPage()
             
         }
     }
-    server.send ( 200, "text/html", PAGE_Root ); 
+    server.send ( 200, "text/html", web_Root ); 
     digitalWrite(Blue_Led, HIGH);
 }
  

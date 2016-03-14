@@ -7,6 +7,7 @@ void ledBlink (int Led, int blink_qty, int blink_time) {
     digitalWrite(Led, HIGH);
     delay(blink_time);
   }
+}
   
   void startESP() {
   EEPROM.begin(512);
@@ -19,9 +20,6 @@ void ledBlink (int Led, int blink_qty, int blink_time) {
   Serial.println("Starting ES8266");
 }
 
-
-   
-}
 
 void setupWifi(){
   if (!ReadConfig())  {
@@ -75,14 +73,14 @@ void setupWifi(){
 }
 
 void setupWebserver(){
-  server.on ( "/", []() {digitalWrite(Blue_Led, LOW); Serial.println("admin.html"); server.send ( 200, "text/html", PAGE_AdminMainPage ); digitalWrite(Blue_Led, HIGH);  }  );
-  server.on ( "/admin.html", []() {digitalWrite(Blue_Led, LOW); Serial.println("admin.html"); server.send ( 200, "text/html", PAGE_AdminMainPage ); digitalWrite(Blue_Led, HIGH);  }  );
+  server.on ( "/", []() {digitalWrite(Blue_Led, LOW); Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); digitalWrite(Blue_Led, HIGH);  }  );
+  server.on ( "/admin.html", []() {digitalWrite(Blue_Led, LOW); Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); digitalWrite(Blue_Led, HIGH);  }  );
   server.on ( "/config.html", send_network_configuration_html );
-  server.on ( "/info.html", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("info.html"); server.send ( 200, "text/html", PAGE_Information ); digitalWrite(Blue_Led, HIGH) ; }  );
+  server.on ( "/info.html", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("info.html"); server.send ( 200, "text/html", web_Information ); digitalWrite(Blue_Led, HIGH) ; }  );
   server.on ( "/ntp.html", send_NTP_configuration_html  );
   server.on ( "/general.html",  send_general_html );
-  server.on ( "/style.css", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("style.css"); server.send ( 200, "text/plain", PAGE_Style_css ); digitalWrite(Blue_Led, HIGH) ; } );
-  server.on ( "/microajax.js", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("microajax.js"); server.send ( 200, "text/plain", PAGE_microajax_js ); digitalWrite(Blue_Led, HIGH); } );
+  server.on ( "/style.css", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("style.css"); server.send ( 200, "text/plain", web_Style_css ); digitalWrite(Blue_Led, HIGH) ; } );
+  server.on ( "/microajax.js", []() { digitalWrite(Blue_Led, LOW) ; Serial.println("microajax.js"); server.send ( 200, "text/plain", web_microajax_js ); digitalWrite(Blue_Led, HIGH); } );
   server.on ( "/admin/values", send_network_configuration_values_html );
   server.on ( "/admin/connectionstate", send_connection_state_values_html );
   server.on ( "/admin/infovalues", send_information_values_html );

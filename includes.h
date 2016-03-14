@@ -28,19 +28,19 @@ WiFiUDP UKI_UDP;
 /*
   Include the HTML, STYLE and Script "Pages"
 */
-#include "Page_Root.h"
-#include "Page_Admin.h"
-#include "Page_Script.js.h"
-#include "Page_Style.css.h"
-#include "Page_NTPSettings.h"
-#include "Page_Information.h"
-#include "Page_General.h"
-#include "PAGE_NetworkConfiguration.h"
-
-
-
-
+#include "web_Root.h"
+#include "web_Admin.h"
+#include "web_Script.js.h"
+#include "web_Style.css.h"
+#include "web_NTPSettings.h"
+#include "web_Information.h"
+#include "web_General.h"
+#include "web_NetworkConfiguration.h"
 
 #include "functions.h"
+
+
+
+
 
 
