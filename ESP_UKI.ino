@@ -2,22 +2,22 @@
     ESP_UKI
 
   TODO :  clean webserver
-          add uki configuration/information page (player number, ADC value, IP of main computer)
+          better function organizing
+          add firmware number in webserver
+          rework led system with tickers
           send ADC to default IP via udp, allow configuration
-          ajout numéro de firmware sur webserver
+         
 */
 	
 
 #include "includes.h"  //headers and variables declaration
 
-/* UKI udp configuration */
-
-int UKI_UDP_In_Port = 9000;  //udp port input for ESP
-IPAddress UKI_UDP_Master_IP(192, 168, 0, 41);  //default udp address to send to. Will automatically change to the ip sending something to udp in
- 
 
 void setup ( void ) {
-  startESP();
+  EEPROM.begin(512);
+  Serial.begin(115200);
+  Serial.println("Starting ES8266");
+  setupLeds();
   setupWifi();
   setupWebserver();
   setupOTA();
@@ -42,7 +42,7 @@ void loop ( void ) {
   
   loopWebserver();
   
-  loopHandles();
+  loopOTA();
 
   /*  UKI part	*/
   GSR_sensor = analogRead(A0);

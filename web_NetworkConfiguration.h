@@ -75,7 +75,7 @@ Please Wait....Configuring and Restarting.
 
 void send_network_configuration_html()
 {
-	digitalWrite(Blue_Led, LOW);
+//	digitalWrite(Blue_Led, LOW);
 	if (server.args() > 0 )  // Save Settings
 	{
 		String temp = "";
@@ -108,7 +108,7 @@ void send_network_configuration_html()
 		server.send ( 200, "text/html", web_NetworkConfiguration ); 
 	}
 	Serial.println(__FUNCTION__); 
-  digitalWrite(Blue_Led, HIGH);
+//  digitalWrite(Blue_Led, HIGH);
 }
 
 
@@ -119,7 +119,7 @@ void send_network_configuration_html()
 
 void send_network_configuration_values_html()
 {
-  digitalWrite(Blue_Led, LOW);
+  //digitalWrite(Blue_Led, LOW);
 	String values ="";
 
 	values += "ssid|" + (String) config.ssid + "|input\n";
@@ -139,7 +139,7 @@ void send_network_configuration_values_html()
 	values += "dhcp|" +  (String) (config.dhcp ? "checked" : "") + "|chk\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
-	digitalWrite(Blue_Led, HIGH);
+	//digitalWrite(Blue_Led, HIGH);
 }
 
 
@@ -149,7 +149,7 @@ void send_network_configuration_values_html()
 
 void send_connection_state_values_html()
 {
-  digitalWrite(Blue_Led, LOW);
+  //digitalWrite(Blue_Led, LOW);
 	String state = "N/A";
 	String Networks = "";
 	if (WiFi.status() == 0) state = "Idle";
@@ -202,5 +202,5 @@ void send_connection_state_values_html()
 	values += "networks|" +  Networks + "|div\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
-	digitalWrite(Blue_Led, HIGH);
+	//digitalWrite(Blue_Led, HIGH);
 }

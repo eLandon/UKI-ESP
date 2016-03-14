@@ -74,7 +74,7 @@ function load(e,t,n){if("js"==t){var a=document.createElement("script");a.src=e,
 void send_NTP_configuration_html()
 {
 	
-	digitalWrite(Blue_Led, LOW);
+//	digitalWrite(Blue_Led, LOW);
 	if (server.args() > 0 )  // Save Settings
 	{
 		config.daylight = false;
@@ -90,7 +90,7 @@ void send_NTP_configuration_html()
 	}
 	server.send ( 200, "text/html", web_NTPConfiguration ); 
 	Serial.println(__FUNCTION__); 
-	digitalWrite(Blue_Led, HIGH);
+//	digitalWrite(Blue_Led, HIGH);
 }
 
 

@@ -69,17 +69,17 @@ function load(e,t,n){if("js"==t){var a=document.createElement("script");a.src=e,
 // Functions for this Page
 void send_devicename_value_html()
 {
-	digitalWrite(Blue_Led, LOW);
+//	digitalWrite(Blue_Led, LOW);
 	String values ="";
 	values += "devicename|" + (String) config.DeviceName + "|div\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
-	digitalWrite(Blue_Led, HIGH);
+//	digitalWrite(Blue_Led, HIGH);
 }
 
 void send_general_html()
 {
-	digitalWrite(Blue_Led, LOW);
+//	digitalWrite(Blue_Led, LOW);
 	if (server.args() > 0 )  // Save Settings
 	{
 		config.AutoTurnOn = false;
@@ -100,12 +100,12 @@ void send_general_html()
 	server.send ( 200, "text/html", web_AdminGeneralSettings ); 
 	Serial.println(__FUNCTION__); 
 	
-	digitalWrite(Blue_Led, HIGH);
+//	digitalWrite(Blue_Led, HIGH);
 }
 
 void send_general_configuration_values_html()
 {
-  digitalWrite(Blue_Led, LOW);
+//  digitalWrite(Blue_Led, LOW);
 	String values ="";
 	values += "devicename|" +  (String)  config.DeviceName +  "|input\n";
 	values += "tonhour|" +  (String)  config.TurnOnHour +  "|input\n";
@@ -116,5 +116,5 @@ void send_general_configuration_values_html()
 	values += "tonenabled|" +  (String) (config.AutoTurnOn ? "checked" : "") + "|chk\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
-  digitalWrite(Blue_Led, HIGH);
+//  digitalWrite(Blue_Led, HIGH);
 }

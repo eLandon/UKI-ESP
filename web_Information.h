@@ -56,7 +56,7 @@ function load(e,t,n){if("js"==t){var a=document.createElement("script");a.src=e,
 
 void send_information_values_html ()
 {
-  digitalWrite(Blue_Led, LOW);
+//  digitalWrite(Blue_Led, LOW);
 	String values ="";
 
 	values += "x_ssid|" + (String)WiFi.SSID() +  "|div\n";
@@ -67,7 +67,7 @@ void send_information_values_html ()
 	values += "x_ntp|" +  (String) DateTime.hour + ":" + (String) + DateTime.minute +  ":"  + (String)  DateTime.second + " " + (String)   DateTime.year + "-" + (String)  DateTime.month + "-" + (String)  DateTime.day +  "|div\n";
 	server.send ( 200, "text/plain", values);
 	Serial.println(__FUNCTION__); 
-  digitalWrite(Blue_Led, HIGH);
+//  digitalWrite(Blue_Led, HIGH);
 }
 
 
