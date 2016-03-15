@@ -112,7 +112,7 @@ void Second_Tick()
 
 
 void setupWebserver(){
-  server.on ( "/", []() {Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); }  );
+  server.on ( "/", []() {server.send ( 200, "text/html", web_AdminMainPage ); } );
   server.on ( "/admin.html", []() {Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); }  );
   server.on ( "/config.html", send_network_configuration_html );
   server.on ( "/info.html", []() { Serial.println("info.html"); server.send ( 200, "text/html", web_Information ); }  );
@@ -125,6 +125,7 @@ void setupWebserver(){
   server.on ( "/admin/infovalues", send_information_values_html );
   server.on ( "/admin/ntpvalues", send_NTP_configuration_values_html );
   server.on ( "/admin/generalvalues", send_general_configuration_values_html);
+  //server.on ( "/admin/devicename", [] () {Serial.println("devicename");    send_devicename_value_html;});
   server.on ( "/admin/devicename",     send_devicename_value_html);
   /* old led management
   server.on ( "/", []() {digitalWrite(Blue_Led, LOW); Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); digitalWrite(Blue_Led, HIGH);  }  );
@@ -146,7 +147,6 @@ void setupWebserver(){
   server.onNotFound ( []() {
     Serial.println("Page Not Found");
     server.send ( 400, "text/html", "Page not Found" );
-//    ledBlink(Blue_Led, 10, 100);
   }  );
   server.begin();
   Serial.println( "HTTP server started" );
@@ -157,13 +157,22 @@ void setupWebserver(){
 
 
 void loopWebserver(){
-  if (AdminEnabled)  {
-    if (AdminTimeOutCounter > AdminTimeOut)   {
-      AdminEnabled = false;
-      Serial.println("Admin Mode disabled!");
-      WiFi.mode(WIFI_STA);
-    }
-  }
+//  if (AdminEnabled)  {
+//    if (AdminTimeOutCounter > AdminTimeOut)   {
+//      AdminEnabled = false;
+//      Serial.println("Admin Mode disabled!");
+//      WiFi.mode(WIFI_STA);
+//    }
+//  }
+  server.handleClient();
+//  if (loop_counter == 10)  {
+//    loop_counter = 0;
+//    server.handleClient();
+//    Red_Led_State = !Red_Led_State;
+//    digitalWrite(Red_Led, Red_Led_State);
+//    delay(10);
+//    }
+//    
   if (config.Update_Time_Via_NTP_Every  > 0 )  {
     if (cNTP_Update > 5 && firstStart)    {
       NTPRefresh();

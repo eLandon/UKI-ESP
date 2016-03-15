@@ -19,17 +19,12 @@ WiFiUDP UKI_UDP;
 
 
 
-#include "helpers.h"
-
-#include "leds.h"
-#include "eeprom.h"
-#include "global.h"
-#include "web.h"
-
-
-
-
-#include "ota.h"
+#include "helpers.h"  //some helpers functions
+#include "leds.h"     //config and functions relative to leds
+#include "eeprom.h"   //config and functions relative to config permanent storage
+#include "global.h"   //config and functions relative to wifi and access point configuration
+#include "web.h"      //config and functions relative to configuration web server
+#include "ota.h"      //config and functions relative to ota firmware updates
 
 
 

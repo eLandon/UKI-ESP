@@ -30,21 +30,16 @@ void setupOTA(){
     digitalWrite(Blue_Led, HIGH);
   });
   ArduinoOTA.begin();
+  Serial.println("OTA started");
 }
 
 void loopOTA(){
-  if (loop_counter == 10)  {
-    loop_counter = 0;
-    server.handleClient();
-    Red_Led_State = !Red_Led_State;
-    digitalWrite(Red_Led, Red_Led_State);
-    delay(10);
-    }
+  
   if (loop_counter == 5)  {
     ArduinoOTA.handle();
     delay(10);
     }
-  loop_counter += 1;
+  
   if (Refresh)  {
     Refresh = false;
     ///Serial.println("Refreshing...");

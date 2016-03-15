@@ -1,6 +1,8 @@
 /*
     ESP_UKI
 
+    largely base on http://www.john-lassen.de/index.php/projects/esp-8266-arduino-ide-webconfig
+
   TODO :  clean webserver
           better function organizing
           add firmware number in webserver
@@ -14,6 +16,7 @@
 
 
 void setup ( void ) {
+  
   EEPROM.begin(512);
   Serial.begin(115200);
   Serial.println("Starting ES8266");
@@ -39,43 +42,32 @@ void setup ( void ) {
 
 
 void loop ( void ) {
-  
+  loop_counter += 1;
   loopWebserver();
   
   loopOTA();
 
   /*  UKI part	*/
-  GSR_sensor = analogRead(A0);
-  //UKI_UDP.beginPacketMulticast((224, 1, 2, 3), 8000, WiFi.localIP());//
-  UKI_UDP.beginPacket(UKI_UDP_Master_IP, 8000);
-  UKI_UDP.print(config.DeviceName);
-  UKI_UDP.print(" ");
-  UKI_UDP.print(GSR_sensor);
-  UKI_UDP.endPacket();
-  //yield();
-//Red_Led_State = !Red_Led_State;
-  
-  //analogWrite(Red_Led, GSR_sensor);
-
-  
-  delay(20);
-  
-
-  //Check udp in
-  int packetSize = UKI_UDP.parsePacket();
-  
-  if(packetSize) {
-    UKI_UDP_Master_IP = UKI_UDP.remoteIP();
-    UKI_UDP.beginPacket(UKI_UDP_Master_IP, 8000);
-    UKI_UDP.print("new master ip");
-    UKI_UDP.endPacket();
-  }
-
-
-
-
-
-
+//  GSR_sensor = analogRead(A0);
+//  //UKI_UDP.beginPacketMulticast((224, 1, 2, 3), 8000, WiFi.localIP());//
+//  UKI_UDP.beginPacket(UKI_UDP_Master_IP, 8000);
+//  UKI_UDP.print(config.DeviceName);
+//  UKI_UDP.print(" ");
+//  UKI_UDP.print(GSR_sensor);
+//  UKI_UDP.endPacket();
+//  //yield();
+//  
+//  delay(20);
+//  
+//  //Check udp in
+//  int packetSize = UKI_UDP.parsePacket();
+//  
+//  if(packetSize) {
+//    UKI_UDP_Master_IP = UKI_UDP.remoteIP();
+//    UKI_UDP.beginPacket(UKI_UDP_Master_IP, 8000);
+//    UKI_UDP.print("new master ip");
+//    UKI_UDP.endPacket();
+//  }
 
 
 
