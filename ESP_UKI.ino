@@ -22,7 +22,7 @@ void setup ( void ) {
   Serial.println("Starting ES8266");
   setupLeds();
   setupWifi();
-  setupWebserver();
+  //setupWebserver();
   setupOTA();
   
   delay(200);
@@ -43,7 +43,7 @@ void setup ( void ) {
 
 void loop ( void ) {
   loop_counter += 1;
-  loopWebserver();
+  //loopWebserver();
   
   loopOTA();
 
