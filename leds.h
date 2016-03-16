@@ -1,29 +1,85 @@
-/* LEDS  */
 const int Blue_Led = 2;
-bool Blue_Led_State ;
+bool Blue_Led_State = 1 ;
 Ticker tkBlue_Led ;
 int tkBlue_Led_Counter;
 
 const int Red_Led = 0;
-bool Red_Led_State ;
+bool Red_Led_State = 0;
 Ticker tkRed_Led ;
 int tkRed_Led_Counter;
+
+/*Faire des fonctions simples à appeler depuis autres functions callbacks, les fonctions locales attachent et detachent les tkLeds
+
+fonctions extérieures appellent blueLedState (0 off, 1 on, -1 blink; time_ms)
+blueStateLed attache/détache les tickers sur fonction invert
+*/
+
+//void LedState ( int Led, int state) { // -1 inverts, 0 off, 1 on
+//  if (Led==Red_Led) {
+//    if (state == -1) { Red_Led_State = !Red_Led_State;}
+//    else {Red_Led_State = state ;}
+//  }
+//  if (Blue_Led)
+//  digitalWrite(Led, !Red_Led_State) ; // inverted, 1 is off and 0 is on
+//  Serial.println("Red Led "+(String)Red_Led_State);
+//}
+
+void blinkLed(int Led) {
+  if (Led==0) {Red_Led_State = !Red_Led_State; digitalWrite(Red_Led, !Red_Led_State) ;}
+  if (Led==1) {Blue_Led_State = !Blue_Led_State; digitalWrite(Blue_Led, !Blue_Led_State);}
+}
+
+void redLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
+  if (state == -1) {
+    tkRed_Led.attach_ms( time_ms, blinkLed, 0);
+    }
+  else {
+    tkRed_Led.detach();
+    Red_Led_State = state ;
+    digitalWrite(Red_Led, !Red_Led_State) ; // inverted, 1 is off and 0 is on
+    }
+  
+  Serial.println("Red Led "+(String)Red_Led_State);
+}
+
+void blueLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
+  if (state == -1) {
+    tkBlue_Led.attach_ms( time_ms, blinkLed, 1);
+    }
+  else {
+    tkBlue_Led.detach();
+    Blue_Led_State = state ;
+    digitalWrite(Blue_Led, !Blue_Led_State) ;
+    }
+   // inverted, 1 is off and 0 is on
+  Serial.println("Blue Led "+(String)Blue_Led_State);
+}
 
 
 void setupLeds() {
   pinMode(Blue_Led, OUTPUT);
-  digitalWrite(Blue_Led, HIGH);
+  digitalWrite(Blue_Led, Blue_Led_State);
   pinMode(Red_Led, OUTPUT);
-  digitalWrite(Red_Led, LOW);//red led on
+  digitalWrite(Red_Led, Red_Led_State);//red led on
+  
+  delay(2000);
+  blueLedState(-1, 100);
+  redLedState(-1, 400);
+  delay (5000);
+  
+  redLedState(1, 100);
+  blueLedState(0, 100);
+  delay(1000);
   
 }
 
 
-void ledBlink (int Led, int blink_qty, int blink_time) {
-  for (int i = 0 ; i < blink_qty ; i++) {
-    digitalWrite(Led, LOW) ;
-    delay(blink_time);
-    digitalWrite(Led, HIGH);
-    delay(blink_time);
-  }
-}
+
+//void ledBlink (int Led, int blink_qty, int blink_time) {
+//  for (int i = 0 ; i < blink_qty ; i++) {
+//    digitalWrite(Led, LOW) ;
+//    delay(blink_time);
+//    digitalWrite(Led, HIGH);
+//    delay(blink_time);
+//  }
+//}

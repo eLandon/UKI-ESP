@@ -11,7 +11,7 @@ void setupOTA(){
     Serial.println("End");
     digitalWrite(Blue_Led, HIGH);
     delay(1000);
-    ledBlink(Blue_Led, 3, 100);
+    //ledBlink(Blue_Led, 3, 100);
 
   });
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
@@ -39,12 +39,7 @@ void loopOTA(){
     ArduinoOTA.handle();
     delay(10);
     }
-  
-  if (Refresh)  {
-    Refresh = false;
-    ///Serial.println("Refreshing...");
-    //Serial.printf("FreeMem:%d %d:%d:%d %d.%d.%d \n",ESP.getFreeHeap() , DateTime.hour,DateTime.minute, DateTime.second, DateTime.year, DateTime.month, DateTime.day);
-  }
+
 
 }
 
