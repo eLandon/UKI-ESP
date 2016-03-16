@@ -97,7 +97,7 @@ void send_network_configuration_html()
 			if (server.argName(i) == "gw_3") if (checkRange(server.arg(i))) 	config.Gateway[3] =  server.arg(i).toInt();
 			if (server.argName(i) == "dhcp") config.dhcp = true;
 		}
-		 server.send ( 200, "text/html", web_WaitAndReload );
+		 server.send ( 200, "text/html", reinterpret_cast<const __FlashStringHelper *>(web_WaitAndReload) );
 		WriteConfig();
 		ConfigureWifi();
 		AdminTimeOutCounter=0;

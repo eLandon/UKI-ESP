@@ -112,14 +112,14 @@ void Second_Tick()
 
 
 void setupWebserver(){
-  server.on ( "/", []() {server.send ( 200, "text/html", web_AdminMainPage ); } );
-  server.on ( "/admin.html", []() {Serial.println("admin.html"); server.send ( 200, "text/html", web_AdminMainPage ); }  );
+  server.on ( "/", []() {server.send ( 200, "text/html", reinterpret_cast<const __FlashStringHelper *>(web_AdminMainPage) ); } );
+  server.on ( "/admin.html", []() {Serial.println("admin.html"); server.send ( 200, "text/html", reinterpret_cast<const __FlashStringHelper *>(web_AdminMainPage) ); }  );
   server.on ( "/config.html", send_network_configuration_html );
-  server.on ( "/info.html", []() { Serial.println("info.html"); server.send ( 200, "text/html", web_Information ); }  );
+  server.on ( "/info.html", []() { Serial.println("info.html"); server.send ( 200, "text/html", reinterpret_cast<const __FlashStringHelper *>(web_Information) ); }  );
   server.on ( "/ntp.html", send_NTP_configuration_html  );
   server.on ( "/general.html",  send_general_html );
-  server.on ( "/style.css", []() { Serial.println("style.css"); server.send ( 200, "text/plain", web_Style_css );} );
-  server.on ( "/microajax.js", []() { Serial.println("microajax.js"); server.send ( 200, "text/plain", web_microajax_js ); } );
+  server.on ( "/style.css", []() { Serial.println("style.css"); server.send ( 200, "text/plain", reinterpret_cast<const __FlashStringHelper *>(web_Style_css ));} );
+  server.on ( "/microajax.js", []() { Serial.println("microajax.js"); server.send ( 200, "text/plain", reinterpret_cast<const __FlashStringHelper *>(web_microajax_js )); } );
   server.on ( "/admin/values", send_network_configuration_values_html );
   server.on ( "/admin/connectionstate", send_connection_state_values_html );
   server.on ( "/admin/infovalues", send_information_values_html );
