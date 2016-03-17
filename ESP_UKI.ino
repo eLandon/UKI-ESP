@@ -22,8 +22,12 @@
 
 
 
-Ticker tkUKI;  // periodic send ADC to UDP
 
+/* UDP CONFIGURATION */
+int UKI_UDP_In_Port = 9000;  //udp port input for ESP
+IPAddress UKI_UDP_Master_IP(192, 168, 0, 41);  //default udp address to send to. Will automatically change to the ip sending something to udp in
+Ticker tkUKI;  // periodic send ADC to UDP
+int GSR_sensor;
 
 
 void setup ( void ) {
@@ -32,7 +36,7 @@ void setup ( void ) {
   Serial.begin(115200);
   Serial.println("Starting ESP8266");
   setupLeds();
-  //setupWifi();
+  setupWifi();
   setupOTA();
   
   delay(200);
@@ -55,10 +59,7 @@ void setup ( void ) {
 
 
 void loop ( void ) {
-  loop_counter += 1;
-  //loopWebserver();
   
-  //loopOTA();
 
   /*  UKI part	*/
 //  GSR_sensor = analogRead(A0);
