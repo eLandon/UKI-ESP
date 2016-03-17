@@ -21,7 +21,7 @@
 
 
 
-Ticker tkOTA;  // periodic check if OTA available
+
 Ticker tkUKI;  // periodic send ADC to UDP
 
 
@@ -33,7 +33,7 @@ void setup ( void ) {
   Serial.println("Starting ESP8266");
   setupLeds();
   //setupWifi();
-  //setupOTA();
+  setupOTA();
   
   delay(200);
   Serial.println("Ready");

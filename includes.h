@@ -32,7 +32,7 @@ WiFiUDP UKI_UDP;
 #include "eeprom.h"   //config and functions relative to config permanent storage
 #include "global.h"   //config and functions relative to wifi and access point configuration
 //#include "web.h"      //config and functions relative to configuration web server
-//#include "ota.h"      //config and functions relative to ota firmware updates
+#include "ota.h"      //config and functions relative to ota firmware updates
 
 
 
