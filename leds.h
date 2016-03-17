@@ -1,28 +1,16 @@
-const int Blue_Led = 2;
+const byte Blue_Led = 2;
 bool Blue_Led_State = 1 ;
 Ticker tkBlue_Led ;
-int tkBlue_Led_Counter;
 
-const int Red_Led = 0;
+const byte Red_Led = 0;
 bool Red_Led_State = 0;
 Ticker tkRed_Led ;
-int tkRed_Led_Counter;
 
 /*Faire des fonctions simples à appeler depuis autres functions callbacks, les fonctions locales attachent et detachent les tkLeds
 
 fonctions extérieures appellent blueLedState (0 off, 1 on, -1 blink; time_ms)
 blueStateLed attache/détache les tickers sur fonction invert
 */
-
-//void LedState ( int Led, int state) { // -1 inverts, 0 off, 1 on
-//  if (Led==Red_Led) {
-//    if (state == -1) { Red_Led_State = !Red_Led_State;}
-//    else {Red_Led_State = state ;}
-//  }
-//  if (Blue_Led)
-//  digitalWrite(Led, !Red_Led_State) ; // inverted, 1 is off and 0 is on
-//  Serial.println("Red Led "+(String)Red_Led_State);
-//}
 
 void blinkLed(int Led) {
   if (Led==0) {Red_Led_State = !Red_Led_State; digitalWrite(Red_Led, !Red_Led_State) ;}
@@ -39,7 +27,7 @@ void redLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
     digitalWrite(Red_Led, !Red_Led_State) ; // inverted, 1 is off and 0 is on
     }
   
-  Serial.println("Red Led "+(String)Red_Led_State);
+  //Serial.println("Red Led "+(String)Red_Led_State);
 }
 
 void blueLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
@@ -52,7 +40,7 @@ void blueLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
     digitalWrite(Blue_Led, !Blue_Led_State) ;
     }
    // inverted, 1 is off and 0 is on
-  Serial.println("Blue Led "+(String)Blue_Led_State);
+  //Serial.println("Blue Led "+(String)Blue_Led_State);
 }
 
 

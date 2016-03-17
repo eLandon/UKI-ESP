@@ -7,6 +7,10 @@ void loopOTA(){
     //Serial.println("OTA check");
 }
 
+void detachOTA(){
+  tkOTA.detach();
+}
+
 
 
 void setupOTA(){

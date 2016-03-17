@@ -19,21 +19,21 @@
 #include <ArduinoOTA.h>
 
 
-ESP8266WebServer server(80); 
+//ESP8266WebServer server(80); 
 
 WiFiUDP UKI_UDP;
 
 
 
-#include "leds.h"     //config and functions relative to leds
+//#include "leds.h"     //config and functions relative to leds
 
-#include "helpers.h"  //some helpers functions
+//#include "helpers.h"  //some helpers functions
 
-#include "eeprom.h"   //config and functions relative to config permanent storage
+//#include "eeprom.h"   //config and functions relative to config permanent storage
+
+//#include "ota.h"      //config and functions relative to ota firmware updates
+
 #include "wifimgr.h"   //config and functions relative to wifi and access point configuration
-#include "ota.h"      //config and functions relative to ota firmware updates
-
-
 
 
 

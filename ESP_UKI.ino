@@ -27,22 +27,24 @@
 int UKI_UDP_In_Port = 9000;  //udp port input for ESP
 IPAddress UKI_UDP_Master_IP(192, 168, 0, 41);  //default udp address to send to. Will automatically change to the ip sending something to udp in
 Ticker tkUKI;  // periodic send ADC to UDP
-int GSR_sensor;
+//int GSR_sensor;
 
 
 void setup ( void ) {
   
-  EEPROM.begin(512);
+  //EEPROM.begin(512);
   Serial.begin(115200);
   Serial.println("Starting ESP8266");
-  setupLeds();
   setupWifi();
-  setupOTA();
+  
+  //setupLeds();
+  
+  //setupOTA();
   
   delay(200);
   Serial.println("Ready");
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
+  //Serial.println(WiFi.localIP());
 
   //UKI sensor setup
   UKI_UDP.begin(UKI_UDP_In_Port); 
@@ -52,13 +54,14 @@ void setup ( void ) {
 //  delay(1000);
 //  ledBlink(Red_Led, 3, 100); //3 quick blink on red led as we start 
 //  delay (1000);
-  blueLedState(-1, 500);
+  //blueLedState(-1, 500);
   
   
 }
 
 
 void loop ( void ) {
+  StartConfigAP();
   
 
   /*  UKI part	*/
