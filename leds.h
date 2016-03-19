@@ -17,6 +17,7 @@ void blinkLed(int Led) {
   if (Led==1) {Blue_Led_State = !Blue_Led_State; digitalWrite(Blue_Led, !Blue_Led_State);}
 }
 
+
 void redLedState ( int state, int time_ms) { // -1 inverts, 0 off, 1 on
   if (state == -1) {
     tkRed_Led.attach_ms( time_ms, blinkLed, 0);
@@ -61,13 +62,3 @@ void setupLeds() {
   
 }
 
-
-
-//void ledBlink (int Led, int blink_qty, int blink_time) {
-//  for (int i = 0 ; i < blink_qty ; i++) {
-//    digitalWrite(Led, LOW) ;
-//    delay(blink_time);
-//    digitalWrite(Led, HIGH);
-//    delay(blink_time);
-//  }
-//}
