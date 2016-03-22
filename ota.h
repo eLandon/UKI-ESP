@@ -1,8 +1,10 @@
 Ticker tkOTA;  // periodic check if OTA available
 int OTA_check_ms = 100;
+bool flag_OTA = false;
 
 void loopOTA(){
-  
+    //change to ticker flag system 
+    
     ArduinoOTA.handle();
     //Serial.println("OTA check");
 }

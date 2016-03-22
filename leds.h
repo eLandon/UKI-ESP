@@ -49,16 +49,15 @@ void setupLeds() {
   pinMode(Blue_Led, OUTPUT);
   digitalWrite(Blue_Led, Blue_Led_State);
   pinMode(Red_Led, OUTPUT);
-  digitalWrite(Red_Led, Red_Led_State);//red led on
-  
+  digitalWrite(Red_Led, Red_Led_State);//red led on at boot
   delay(2000);
-  blueLedState(-1, 100);
-  redLedState(-1, 400);
-  delay (5000);
   
-  redLedState(1, 100);
-  blueLedState(0, 100);
-  delay(1000);
+  blueLedState(-1, 100);
+  redLedState(-1, 100);
+  delay (500); // blink fast during 0.5 seconds
+  
+  redLedState(0, 100);
+  blueLedState(0, 100); // then switch all leds off
   
 }
 

@@ -1,5 +1,6 @@
 
 
+#include <FS.h>                   //this needs to be first, or it all crashes and burns...
 
 #include <ESP8266WiFi.h>
 //#include <WiFiClient.h>
@@ -11,14 +12,11 @@
 
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
 
-
 #include <Ticker.h>
-#include <EEPROM.h>
 #include <WiFiUdp.h>
 
 //OTA includes
 #include <ESP8266mDNS.h>
-//#include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
 
@@ -27,16 +25,10 @@
 WiFiUDP UKI_UDP;
 
 
-
 #include "leds.h"     //config and functions relative to leds
-
-#include "helpers.h"  //some helpers functions
-
-#include "eeprom.h"   //config and functions relative to config permanent storage
-
+//#include "helpers.h"  //some helpers functions
 #include "ota.h"      //config and functions relative to ota firmware updates
-
-#include "wifimgr.h"   //config and functions relative to wifi and access point configuration
+#include "wifimgr.h"   //config and functions relative to wifi and access point configuration and configuration permanent saving
 
 
 
