@@ -7,7 +7,7 @@ bool flag_ConfigPortal = false;
 
 char UKI_NAME[40];
 char UKI_UDP_PORT[6] = "9000";
-char UKI_UDP_IP[34] = "192.168.10.100";
+char UKI_UDP_IP[16] = "192.168.1.100";
 
 
 
@@ -52,6 +52,7 @@ void ReadConfig() {
           strcpy(UKI_NAME, json["UKI_NAME"]);
           strcpy(UKI_UDP_PORT, json["UKI_UDP_PORT"]);
           strcpy(UKI_UDP_IP, json["UKI_UDP_IP"]);
+          
 
         } else {
           Serial.println("failed to load json config");
@@ -85,6 +86,7 @@ void WriteConfig() {
       json.printTo(Serial);
       json.printTo(configFile);
       configFile.close();
+      Serial.println();
       //end save
     }
 }
@@ -132,21 +134,30 @@ void StartConfigAP(){
     //here  "AutoConnectAP"
     //and goes into a blocking loop awaiting configuration
 
-    redLedState (0, 500);
-    blueLedState (-1, 100);
+    
     delay(1000);
-    if (!wifiManager.startConfigPortal("ESP_UKI_AP")) {
-      Serial.println("failed to connect, restarting");
-      //reset and try again
-      redLedState (-1, 100);
+
+    //Modify below to restart config portal 
+   // bool flag_connected =false ;
+    //while (!flag_connected) {
+      redLedState (0, 500);
       blueLedState (-1, 100);
-      ESP.reset();
-      delay(3000);
+    
+      if (!wifiManager.startConfigPortal("ESP_UKI_AP")) {
+        Serial.println("failed to connect, restarting config portal");
+        //reset and try again
+        redLedState (-1, 100);
+        blueLedState (-1, 100);
+        ESP.reset();
+        delay(3000);
       }
+     // else {flag_connected = true;}
+    //}
+
 
     //if you get here you have connected to the WiFi
     Serial.println("connected to UKI wifi");
-    blueLedState(1,500);
+    blueLedState(0,500);
 
     //read updated parameters
     strcpy(UKI_NAME, custom_UKI_NAME.getValue());
@@ -154,17 +165,33 @@ void StartConfigAP(){
     strcpy(UKI_UDP_IP, custom_UKI_UDP_IP.getValue());
 
     WriteConfig();
-    
-    // attach() tickers back now that it's working
-    
+    Serial.println("Restarting");
+    delay(500);
+    ESP.reset();
+    delay(3000);
   }
 }
 
 
 void setupWifi() {
   pinMode(TRIGGER_PIN, INPUT);
-  tkConfig.attach(5, CheckTriggerPin); // check TRIGGER_PIN state periodically
+  blueLedState (-1, 100);
+  Serial.print("Connecting");
   WiFi.begin();
+  while(WiFi.status()!=3){
+    Serial.print(".");
+    delay(100);
+  }
+  Serial.println();
+  Serial.println("connected");  //add wifi ssid 
+  blueLedState(1,500);
+  //ajout attente connection + leds
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());// ou vérifier si IP = 0.0.0.0, lancer config portal
+  
+  //delay(10000);
+  tkConfig.attach(5, CheckTriggerPin); // check TRIGGER_PIN state periodically
+  ReadConfig();
 //  while(WiFi.status()<3) {
 //    Serial.print
 //clean FS, for testing
