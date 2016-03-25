@@ -20,12 +20,13 @@ void UDP_send_receive() {
 
   if (flag_UDP) {
     flag_UDP = false;
+    redLedState (1, 300);
       
        /*  UKI part  */
     GSR_sensor = analogRead(A0);
     //UKI_UDP.beginPacketMulticast((224, 1, 2, 3), 8000, WiFi.localIP());//
     UKI_UDP.beginPacket(UKI_UDP_Out_IP, UKI_UDP_Out_Port);
-    UKI_UDP.print("UKI");
+    UKI_UDP.print(UKI_NAME);
     UKI_UDP.print(" ");
     UKI_UDP.print(GSR_sensor);
     UKI_UDP.endPacket();
@@ -39,6 +40,7 @@ void UDP_send_receive() {
       UKI_UDP.print("new master ip");
       UKI_UDP.endPacket();
     }
+    redLedState (0, 300);
   }
   
 

@@ -18,7 +18,7 @@
 
 void setup ( void ) {
   
-  
+  delay(500) ;
   Serial.begin(115200);
   Serial.println("Starting ESP8266");
 
@@ -39,6 +39,7 @@ void setup ( void ) {
 void loop ( void ) {
   //Serial.println(WiFi.status());
   StartConfigAP();
+  //checkOTA();
   UDP_send_receive();
 
   

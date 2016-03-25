@@ -4,10 +4,11 @@ bool flag_SaveConfig = false;
 #define TRIGGER_PIN 12 //start onDemand config portal when set to LOW
 Ticker tkConfig ;
 bool flag_ConfigPortal = false;
+int timeout = 30000;
 
 char UKI_NAME[40];
 char UKI_UDP_PORT[6] = "9000";
-char UKI_UDP_IP[16] = "192.168.1.100";
+char UKI_UDP_IP[16] = "192.168.10.100";
 
 
 
@@ -19,7 +20,7 @@ void saveConfigCallback () {
 
 // Ticker flag to go to config mode
 void CheckTriggerPin () {
-  Serial.println("Config check");
+  //Serial.println("Config check");
   if ( digitalRead(TRIGGER_PIN) == LOW) {
     flag_ConfigPortal = true;
   }
@@ -54,7 +55,8 @@ void ReadConfig() {
           strcpy(UKI_UDP_IP, json["UKI_UDP_IP"]);
           
 
-        } else {
+        } 
+        else {
           Serial.println("failed to load json config");
         }
       }
@@ -108,7 +110,7 @@ void StartConfigAP(){
     tkConfig.detach();
     delay (500); 
 
-    ReadConfig() ; //read config.json from FS
+    //ReadConfig() ; //read config.json from FS
     
     //WiFiManager
     
@@ -140,11 +142,11 @@ void StartConfigAP(){
     //Modify below to restart config portal 
    // bool flag_connected =false ;
     //while (!flag_connected) {
-      redLedState (0, 500);
+      redLedState (1, 100);
       blueLedState (-1, 100);
-    
-      if (!wifiManager.startConfigPortal("ESP_UKI_AP")) {
+      if (!wifiManager.startConfigPortal(UKI_NAME)) {
         Serial.println("failed to connect, restarting config portal");
+        delay(2000);
         //reset and try again
         redLedState (-1, 100);
         blueLedState (-1, 100);
@@ -175,23 +177,31 @@ void StartConfigAP(){
 
 void setupWifi() {
   pinMode(TRIGGER_PIN, INPUT);
-  blueLedState (-1, 100);
+  blueLedState (-1, 300);
+  
+  ReadConfig();
   Serial.print("Connecting");
   WiFi.begin();
+  int start_time = millis();
   while(WiFi.status()!=3){
     Serial.print(".");
-    delay(100);
+    delay(1000);
+    if (millis()-start_time > timeout) {
+      Serial.println("timeout, starting config portal");
+      flag_ConfigPortal = true;
+      StartConfigAP();
+    }
   }
   Serial.println();
-  Serial.println("connected");  //add wifi ssid 
+  Serial.print("connected to ");  //add wifi ssid 
+  Serial.println(WiFi.SSID());
   blueLedState(1,500);
   //ajout attente connection + leds
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());// ou vérifier si IP = 0.0.0.0, lancer config portal
-  
-  //delay(10000);
   tkConfig.attach(5, CheckTriggerPin); // check TRIGGER_PIN state periodically
-  ReadConfig();
+  //delay(10000);
+  
 //  while(WiFi.status()<3) {
 //    Serial.print
 //clean FS, for testing
